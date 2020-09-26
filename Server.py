@@ -14,7 +14,7 @@ while (counter <= 3):
         data, address = serverSocket.recvfrom(1024)
         dataString = data.decode()
         print (dataString)
-        firstMessage = str("Who's there?")
+        firstMessage = str("Server: Who's there?")
         firstReply = str.encode(firstMessage)
         reply = serverSocket.sendto(firstReply, address)
         counter = counter + 1
@@ -25,9 +25,11 @@ while (counter <= 3):
         secondMessage = dataString.partition(":")[2]
         strippedMessage = secondMessage.lstrip()
         strippedEncode = str.encode(strippedMessage)
+        serverID = str("Server: ")
+        serverMessage = str.encode(serverID)
         who = str(" who?")
         whoMessage = str.encode(who)
-        secondReply = strippedEncode + whoMessage
+        secondReply = serverMessage + strippedEncode + whoMessage
         reply = serverSocket.sendto(secondReply, address)
         counter = counter + 1
     elif counter == 3:
